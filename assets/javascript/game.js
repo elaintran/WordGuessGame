@@ -4,8 +4,8 @@ var livesNumber = document.querySelector(".lives");
 var gamesPlayed = document.querySelector(".played");
 var wins = document.querySelector(".wins");
 
-var words = ["tetris", "mario", "zelda", "pacman", "pokemon", "pong", "megaman", "frogger",
-            "metroid", "kirby", "digimon", "tekken", "splatoon", "xenoblade"];
+var words = ["mario", "luigi", "peach", "daisy", "wario", "bowser", "toad",
+            "goomba", "koopa", "yoshi", "birdo", "boo", "fuzzy", "lakitu"];
 
 var guessedLetter = [];
 var lives;
@@ -14,19 +14,16 @@ var gamesNumber = 1;
 var randomWord;
 var newWord;
 var remainingGuesses;
-//console.log(newWord);
 
 function startOver() {
     guessedLetter = [];
+    //reset lives
     lives = 10;
+    livesNumber.innerText = lives;
     //generates random word from array
     randomWord = Math.floor(Math.random() * words.length);
     newWord = words[randomWord];
     remainingGuesses = newWord.length;
-    var letterList = document.querySelectorAll(".letter");
-    for(var i = 0; i < letterList.length; i++) {
-        letterList[i].classList.remove("pressed");
-    }
     //clear guess container
     while (wordContainer.hasChildNodes()) {
         wordContainer.removeChild(wordContainer.lastChild);
@@ -36,7 +33,7 @@ function startOver() {
         wrongLetters.removeChild(wrongLetters.lastChild);
     }
     wordHolder();
-    //console.log(newWord);
+    console.log(newWord);
 }
 startOver();
 
@@ -48,7 +45,6 @@ function guess(letterPressed) {
         wordGuess(letterPressed);
     }
     updateStats();
-    //console.log(guessedLetter);
 }
 
 //creates placeholder for random word
@@ -59,7 +55,6 @@ function wordHolder() {
         wordContainer.appendChild(hiddenLetter);
     }
 }
-wordHolder();
 
 //check letter and replace placeholder with correct letter
 function wordGuess(letterPressed) {
@@ -101,7 +96,6 @@ function updateStats() {
         if (remainingGuesses == 0) {
             winsNumber++;
             gamesNumber++;
-            livesNumber.innerText = lives;
             if (winsNumber < 10) {
                 wins.innerText = "0" + winsNumber;
             } else {
@@ -115,8 +109,8 @@ function updateStats() {
             startOver();
         }
     }, 2000);
+    //update games and start game over if lose
     if (lives == 0) {
-        livesNumber.innerText = lives;
         gamesNumber++;
         if (gamesNumber < 10) {
             gamesPlayed.innerText = "0" + gamesNumber;
