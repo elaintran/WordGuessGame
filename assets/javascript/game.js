@@ -8,19 +8,18 @@ var words = ["tetris", "mario", "zelda", "pacman", "pokemon", "pong", "megaman",
             "metroid", "kirby", "digimon", "tekken", "splatoon", "xenoblade"];
 
 var guessedLetter = [];
-var lives = 10;
+var lives;
 var winsNumber = 0;
 var gamesNumber = 1;
-
-//generates random word from array
-var randomWord = Math.floor(Math.random() * words.length);
-var newWord = words[randomWord];
-var remainingGuesses = newWord.length;
-console.log(newWord);
+var randomWord;
+var newWord;
+var remainingGuesses;
+//console.log(newWord);
 
 function startOver() {
     guessedLetter = [];
-    //lives = 10;
+    lives = 10;
+    //generates random word from array
     randomWord = Math.floor(Math.random() * words.length);
     newWord = words[randomWord];
     remainingGuesses = newWord.length;
@@ -37,8 +36,9 @@ function startOver() {
         wrongLetters.removeChild(wrongLetters.lastChild);
     }
     wordHolder();
-    console.log(newWord);
+    //console.log(newWord);
 }
+startOver();
 
 //indexOf === -1 means no letters found
 function guess(letterPressed) {
@@ -48,7 +48,7 @@ function guess(letterPressed) {
         wordGuess(letterPressed);
     }
     updateStats();
-    console.log(guessedLetter);
+    //console.log(guessedLetter);
 }
 
 //creates placeholder for random word
@@ -75,7 +75,6 @@ function wordGuess(letterPressed) {
             wordContainer.children[i].replaceWith(shownLetter);
             found = true;
             remainingGuesses--;
-            console.log(remainingGuesses);
         }
     }
     //subtract lives if letter not found
@@ -100,7 +99,6 @@ function updateStats() {
     //delay before new game to see word after winning
     setTimeout(function() {
         if (remainingGuesses == 0) {
-            lives = 10;
             winsNumber++;
             gamesNumber++;
             livesNumber.innerText = lives;
@@ -118,7 +116,6 @@ function updateStats() {
         }
     }, 2000);
     if (lives == 0) {
-        lives = 10;
         livesNumber.innerText = lives;
         gamesNumber++;
         if (gamesNumber < 10) {
@@ -129,7 +126,6 @@ function updateStats() {
         startOver();
     }
 }
-
 
 //get letter input from key a-z
 document.onkeyup = function(event) {
