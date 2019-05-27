@@ -4,6 +4,8 @@ var wrongLetters = document.querySelector(".wrong-letters");
 var lives = document.querySelector(".lives");
 var gamesPlayed = document.querySelector(".played");
 var wins = document.querySelector(".wins");
+var correctAudio = document.querySelector(".correct");
+var incorrectAudio = document.querySelector(".incorrect");
 
 var words = ["mario", "luigi", "peach", "daisy", "wario", "bowser", "toad",
             "goomba", "koopa", "yoshi", "birdo", "boo", "fuzzy", "lakitu"];
@@ -94,8 +96,9 @@ function wordGuess(letterPressed) {
 
 function updateStats() {
     //delay before new game to see word after winning
-    setTimeout(function() {
-        if (remainingGuesses == 0) {
+    if (remainingGuesses == 0) {
+        correctAudio.play();
+        setTimeout(function() {
             winsNumber++;
             gamesNumber++;
             if (winsNumber < 10) {
@@ -109,8 +112,8 @@ function updateStats() {
                 gamesPlayed.innerText = gamesNumber;
             }
             startOver();
-        }
-    }, 2000);
+        }, 1000);
+    }
     //update games and start game over if lose
     if (livesNumber == 0) {
         gamesNumber++;
@@ -120,6 +123,7 @@ function updateStats() {
             gamesPlayed.innerText = gamesNumber;
         }
         startOver();
+        incorrectAudio.play();
     }
 }
 
