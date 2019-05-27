@@ -1,6 +1,7 @@
+var mainContainer = document.querySelector(".main-container");
 var wordContainer = document.querySelector(".word-container");
 var wrongLetters = document.querySelector(".wrong-letters");
-var livesNumber = document.querySelector(".lives");
+var lives = document.querySelector(".lives");
 var gamesPlayed = document.querySelector(".played");
 var wins = document.querySelector(".wins");
 
@@ -8,7 +9,7 @@ var words = ["mario", "luigi", "peach", "daisy", "wario", "bowser", "toad",
             "goomba", "koopa", "yoshi", "birdo", "boo", "fuzzy", "lakitu"];
 
 var guessedLetter = [];
-var lives;
+var livesNumber;
 var winsNumber = 0;
 var gamesNumber = 1;
 var randomWord;
@@ -18,8 +19,8 @@ var remainingGuesses;
 function startOver() {
     guessedLetter = [];
     //reset lives
-    lives = 10;
-    livesNumber.innerText = lives;
+    livesNumber = 10;
+    lives.innerText = livesNumber;
     //generates random word from array
     randomWord = Math.floor(Math.random() * words.length);
     newWord = words[randomWord];
@@ -37,7 +38,7 @@ function startOver() {
 }
 startOver();
 
-//indexOf === -1 means no letters found
+//indexOf === -1 prevents same letter from being pushed
 function guess(letterPressed) {
     if (guessedLetter.indexOf(letterPressed) === -1) {
         guessedLetter.push(letterPressed);
@@ -74,10 +75,10 @@ function wordGuess(letterPressed) {
     }
     //subtract lives if letter not found
     if (found == false) {
-        if (lives > 0) {
-            lives--;
+        if (livesNumber > 0) {
+            livesNumber--;
             //create wrong letter container
-            livesNumber.innerText = "0" + lives;
+            lives.innerText = "0" + livesNumber;
             var wrongLetterContainer = document.createElement('div');
             wrongLetterContainer.setAttribute("class", "letter");
             var letterName = document.createElement("h3");
@@ -85,9 +86,10 @@ function wordGuess(letterPressed) {
             letterName.appendChild(letterText);
             wrongLetters.appendChild(wrongLetterContainer).appendChild(letterName);
         } else {
-            livesNumber.innerText = "00";
+            lives.innerText = "00";
         }
     }
+    overflow();
 }
 
 function updateStats() {
@@ -110,7 +112,7 @@ function updateStats() {
         }
     }, 2000);
     //update games and start game over if lose
-    if (lives == 0) {
+    if (livesNumber == 0) {
         gamesNumber++;
         if (gamesNumber < 10) {
             gamesPlayed.innerText = "0" + gamesNumber;
@@ -119,6 +121,17 @@ function updateStats() {
         }
         startOver();
     }
+}
+
+//adjust vertical overflow
+function overflow() {
+	if (mainContainer.scrollHeight > mainContainer.clientHeight) {
+		mainContainer.style.display = "block";
+        mainContainer.style.height = "auto";
+        mainContainer.style.padding = "10% 0";
+	} else {
+		mainContainer.removeAttribute("style");
+	}
 }
 
 //get letter input from key a-z

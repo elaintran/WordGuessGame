@@ -1,3 +1,12 @@
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 body {
     background-color: #1c1c1c;
     font-family: "Work Sans", sans-serif;
@@ -16,7 +25,7 @@ h4 {
 }
 
 p {
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .main-container {
@@ -76,6 +85,8 @@ p {
     position: relative;
     text-transform: uppercase;
     margin-bottom: 8px;
+    animation-name: fade;
+    animation-duration: 200ms;
 }
 
 .instructions {
@@ -107,6 +118,8 @@ p {
     position: relative;
     box-shadow: 0px 8px #e0e0e0;
     text-transform: uppercase;
+    animation-name: fade;
+    animation-duration: 200ms;
 }
 
 .letter h3, .correct-guess h2 {
@@ -211,5 +224,27 @@ p {
     }
     .correct-guess {
         margin-bottom: 8px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    p {
+        font-size: 19px;
+    }
+    .instructions p {
+        line-height: 22px;
+    }
+    .stats {
+        margin: 0 13px 40px;
+    }
+    .stats h4 {
+        font-size: 26px;
+    }
+    .stats h4 span {
+        font-size: 33px;
+        line-height: 30px;
+    }
+    .guess, .correct-guess {
+        width: 50px;
     }
 }
