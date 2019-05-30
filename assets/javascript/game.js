@@ -122,8 +122,8 @@ function updateStats() {
         } else {
             gamesPlayed.innerText = gamesNumber;
         }
-        startOver();
         incorrectAudio.play();
+        startOver();
     }
 }
 
